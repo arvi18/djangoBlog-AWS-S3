@@ -13,11 +13,10 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import os
 import django_heroku
-import dj_database_url
-from decouple import config
+# from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
@@ -28,6 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
+# DEBUG = (os.environ.get('DEBUG_VALUE') == 'True')
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
@@ -86,7 +86,7 @@ WSGI_APPLICATION = 'django_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -134,8 +134,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = 'media/'
 
 # STATICFILES_STORAGE='whitenoise.storage.CompressedManifestStaticFilesStorage'
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -155,14 +153,15 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'ucdonor5@gmail.com'
 EMAIL_HOST_PASSWORD = 'csaesohjnifmubtc'
 
-aws_access_key_id = os.environ.get('aws_access_key_id')
-aws_secret_access_key = os.environ.get('aws_secret_access_key')
-AWS_STORAGE_BUCKET_NAME = 'djangoblogs3'
+AWS_ACCESS_KEY_ID = os.environ.get('aws_access_key_id')
+AWS_SECRET_ACCESS_KEY = os.environ.get('aws_secret_access_key')
+AWS_STORAGE_BUCKET_NAME='djangoblogs3'
 AWS_S3_REGION_NAME = 'ap-south-1'  # change to your region
 AWS_S3_ADDRESSING_STYLE = "virtual"
 AWS_S3_SIGNATURE_VERSION = "s3v4"
 AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = None
 # STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 django_heroku.settings(locals())
