@@ -14,72 +14,75 @@
   {% endif %}
 </head>
 
-<header class="site-header">
-  <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
-    <div class="container">
-      <a class="navbar-brand mr-4" href="/">Project Blog</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
-        aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarToggle">
-        <div class="navbar-nav mr-auto">
-          <a class="nav-item nav-link" href="{% url 'blog-home' %}">Home</a>
-          <a class="nav-item nav-link" href="{% url 'blog-about' %}">About</a>
+<body style="background-color: rgb(211, 232, 235);"> 
+  <header class="site-header ">
+    <nav class="navbar navbar-expand-md fixed-top navbar-dark p-1 border-dark" style="background-color: rgb(59, 149, 206);">
+      <div class="container">
+      <a class="navbar-brand img-thumbnail" href="#">
+      <img src="https://djangoblogs3.s3.ap-south-1.amazonaws.com/profile_pics/default-bg.png" width="32" height="32" alt="">
+    </a>
+        <a class="navbar-brand mr-4 font-weight-bold" href="/">VIT Alumni</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
+          aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarToggle">
+          <div class="navbar-nav mr-auto">
+            <a class="nav-item nav-link" href="{% url 'blog-home' %}">Home</a>
+            <a class="nav-item nav-link" href="{% url 'blog-about' %}">About</a>
+          </div>
+          <!-- Navbar Right Side -->
+          <div class="navbar-nav">
+            {% if user.is_authenticated %}
+            <a class="nav-item nav-link" href="{% url 'post-create' %}">New Post</a>
+            <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
+            <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+            {% else %}
+            <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+            <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+            {% endif %}
+          </div>
         </div>
-        <!-- Navbar Right Side -->
-        <div class="navbar-nav ">
-          {% if user.is_authenticated %}
-          <a class="nav-item nav-link" href="{% url 'post-create' %}">New Post</a>
-          <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
-          <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
-          {% else %}
-          <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
-          <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
-          {% endif %}
+      </div>
+    </nav>
+  </header>
+
+
+  <main role="main" class="container">
+    <div class="row">
+      <div class="col-md-8">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+          {{message}}
+        </div>
+
+        {% endfor %}
+        {% endif %}
+
+        {% block content %}{% endblock %}
+      </div>
+      <div class="col-md-4">
+        <div class="content-section border-info" style="background-color: rgb(221, 233, 233);">
+          <h3>Latest News</h3>
+          <p class='text-muted'>
+          <ul class="list-group border">
+            <li class="list-group-item list-group-item-light border-info"> <a href="https://www.vitpunealumni.in/newsroom/news/Congratulations-Yash-Dravid-for-Selected-at-IISC-Bangalore-for-MTech-Research-in-Instrumentation-and-Applied-Physics.dz" target="_blank" > Yash Dravid Selected for IISC Bangalore MTech...</a></li>
+            <li class="list-group-item list-group-item-light border-info"> <a href="https://www.vitpunealumni.in/newsroom/news/Heartiest-Congratulations-Campus-Placement-Selection-at-Emerson---Instrumentation-Engineering-Department.dz" target="_blank" >Campus Placement Selection at Emerson...</a> </li>
+            <li class="list-group-item list-group-item-light border-info"> <a href="https://www.vitpunealumni.in/newsroom/news/Congratulations-Sharvari-Shirke-for-securing-Admission-in-IIM-Visakhapatnam---Instrumentation-Engineering-Department" target="_blank" >Sharvari Shirke selscted for IIM Visakhapatnam...</a> </li>
+          </ul>
+          </p>
         </div>
       </div>
     </div>
-  </nav>
-</header>
-
-
-<main role="main" class="container">
-  <div class="row">
-    <div class="col-md-8">
-      {% if messages %}
-      {% for message in messages %}
-      <div class="alert alert-{{ message.tags }}">
-        {{message}}
-      </div>
-
-      {% endfor %}
-      {% endif %}
-
-      {% block content %}{% endblock %}
-    </div>
-    <div class="col-md-4">
-      <div class="content-section">
-        <h3>Our Sidebar</h3>
-        <p class='text-muted'>You can put any information here you'd like.
-        <ul class="list-group">
-          <li class="list-group-item list-group-item-light">Latest Posts</li>
-          <li class="list-group-item list-group-item-light">Announcements</li>
-          <li class="list-group-item list-group-item-light">Calendars</li>
-          <li class="list-group-item list-group-item-light">etc</li>
-        </ul>
-        </p>
-      </div>
-    </div>
+  </main>
   </div>
-</main>
-
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-  integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-  integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-  integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 
 </html>
