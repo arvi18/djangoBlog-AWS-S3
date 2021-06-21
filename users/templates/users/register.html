@@ -1,0 +1,20 @@
+{% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="content-section">
+
+    <form method="POST">
+        {% csrf_token %}
+        {{form|crispy}}
+        <div class="form-group">
+            <button class="btn btn-outline-info" type="submit">Sign Up</button>
+        </div>
+    </form>
+    <small class="text-muted">Already have an account?</small>
+    <p>sign in 
+    <a href="{% url 'login' %}">here.</a></p>
+    
+</div>
+
+{% endblock content %}
