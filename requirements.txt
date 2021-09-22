@@ -82,3 +82,5 @@ wasabi==0.8.2
 wcwidth==0.2.5
 Werkzeug==2.0.1
 whitenoise==5.2.0
+django-ckeditor==6.1.0
+django-js-asset==1.2.2
