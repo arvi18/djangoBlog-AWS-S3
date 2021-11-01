@@ -1,0 +1,4 @@
+This is a Brave Rewards publisher verification file.
+
+Domain: djangoblogs3.herokuapp.com
+Token: c0da287d02480d61b69c13d22545e028e04cef4ac8118280db934124b1f2d6cf
